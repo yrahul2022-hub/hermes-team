@@ -1,0 +1,12 @@
+# secrets and runtime state - never commit
+.env
+server/.env
+data/
+server/data/
+models/
+server/models/
+Modelfile
+*.key
+*.pem
+searxng/settings.yml
+shared/inbox/*/*.md

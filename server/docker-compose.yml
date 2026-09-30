@@ -1,0 +1,27 @@
+name: hermes-team
+# Lightweight: LLM is NVIDIA's hosted API, so only Hermes + SearXNG run here (~1-1.5 GB RAM).
+services:
+  hermes:
+    image: nousresearch/hermes-agent:latest
+    container_name: hermes
+    restart: unless-stopped
+    command: ["gateway", "run"]
+    env_file: [.env]
+    environment:
+      - HERMES_DASHBOARD=1
+      - HERMES_DASHBOARD_HOST=0.0.0.0
+      - HERMES_DASHBOARD_BASIC_AUTH_USERNAME=${DASHBOARD_USER:-admin}
+      - HERMES_DASHBOARD_BASIC_AUTH_PASSWORD=${DASHBOARD_PASSWORD}
+      - HERMES_DASHBOARD_BASIC_AUTH_SECRET=${DASHBOARD_SECRET}
+      - API_SERVER_ENABLED=true
+      - API_SERVER_HOST=0.0.0.0
+      - API_SERVER_KEY=${API_SERVER_KEY}
+    ports: [ "127.0.0.1:9119:9119", "127.0.0.1:8642:8642" ]
+    volumes: [ "./data:/opt/data" ]
+    shm_size: 512m
+    depends_on: [ searxng ]
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    restart: unless-stopped
+    volumes: [ "./searxng:/etc/searxng" ]
