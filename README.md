@@ -12,3 +12,6 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 Commands: `.\team.ps1 up | down | board | ask "goal"`
 
 Better quality: set a cloud provider in `data\config.yaml` (`hermes model` inside the container); nothing else changes.
+
+
+Maintained by [@yrahul2022-hub](https://github.com/yrahul2022-hub).
